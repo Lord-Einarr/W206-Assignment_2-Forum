@@ -1,0 +1,142 @@
+.page-body {
+	background-color: #777;
+}
+
+/* NAVIGATION */
+#main-nav {
+    margin-bottom: 0;
+}
+
+/* PAGECONTENT */
+.page-wrapper {
+	background-color: silver;
+	color: #000;
+}
+
+
+/* PAGE HEADER */
+
+.page-header {
+	border: none;
+	text-align: center;
+	background-color: #222;
+}
+
+.main-header h1, h2{
+	text-align: center;
+	margin-bottom: 22px;
+}
+
+/* END PAGE HEADER */
+
+.contstruction {
+	margin: auto;
+	text-align: center;
+	background-color: white;
+	width: 50%;
+	padding: 25px;
+	margin-bottom: 22px;
+
+}
+
+/* PAGE FOOTER */
+.page-footer {
+	background-color: #222;
+	padding-bottom: 22px;
+}
+
+/* SITEMAP */
+.site-map {
+	text-align: center;
+}
+
+/* CONTACT */
+.contact {
+	text-align: center;
+}
+
+.contact a {
+	color: silver;
+}
+
+.contact a:hover {
+	color: #3097D1;
+}
+
+/* CREDITS AND COPYRIGHTS */
+.credits {
+	background-color: #000;
+	color: grey;
+	text-align: center;
+	margin: auto;
+}
+
+.credits p {
+	margin: 10px;
+}
+
+.credits a {
+	color: silver;
+}
+/* END CREDITS AND COPYRIGHTS*/
+
+/* ------------------------------------------------------ */
+
+.login-wrapper {
+	background-color: gray;
+	width: 70%;
+	text-align: center;
+	margin:auto;
+	margin-bottom: 22px;
+}
+ .login-wrapper p {
+ 	font-weight: bold;
+ 	padding-top: 11px; 
+ 	padding-bottom: 11px;
+ }
+
+ .login-wrapper a {
+ 	color: #fff;
+ 	text-decoration: underline;
+ }
+
+ .login-wrapper a:hover {
+ 	color: green ;
+ }
+
+.register {
+	text-align: center;
+}
+
+.email-label {
+	text-align: center;
+}
+
+.email-input {
+	text-align: center;
+}
+
+#email {
+	margin: auto;
+}
+
+.submit-button {
+	padding-top: 0;
+	margin-top: 0;
+}
+
+.dashboard-sidebar {
+	background-color: silver;
+}
+
+.dashboard-header {
+	margin-bottom: 0;
+	margin-top: 0;
+	background-color: silver;
+	padding-top: 20px;
+
+}
+
+.dashboard-header h1 {
+	margin-top: 0;
+}

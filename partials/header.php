@@ -1,19 +1,28 @@
+<?php
+    session_start();
+    require "includes/dbcon.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-        
-        <!-- MET TAGS AND SEO -->
     	<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    	<!-- PAGE TITLE -->
-        <title><?= (!empty($page['title'])) ? $page['title'] : 'Default Page' ?></title>
+    	<title><?= (!empty($page['title'])) ? $page['title'] : 'Default Page' ?></title>
 
-    	<!-- INTERNAL STYLE SHEET -->
-        <link  rel="stylesheet" href="css/app.css">
-        <link rel="stylesheet" type="text/css" href="css/custom.css">
+    	<!-- Styles -->
+    	
+      
+    	<!-- Bootstrap -->
+    	<link href="css/app.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/fourm.css">
+        <link rel="stylesheet" type="text/css" href="css/custom.css">        
+
+
+
+        <link href="//db.onlinewebfonts.com/c/a4e256ed67403c6ad5d43937ed48a77b?family=Core+Sans+N+W01+35+Light" rel="stylesheet" type="text/css"/>
 
 	</head>
-
-    <body>
+    
+	<body class="page-body">
