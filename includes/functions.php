@@ -1,4 +1,25 @@
 <?php
+	
+
+
+function dispcategories() {
+		include ('config.php');
+		$select = mysqli_query($conn, "SELECT * FROM categories");
+		
+		while ($row = mysqli_fetch_assoc($select)) {
+			echo "<table class='category-table'>";
+			echo "<tr><td class='main-category' colspan='2'>".$row['cat_title']."</td></tr>";
+			dispsubcategories($row['cat_id']);
+			echo "</table>";
+		}
+	}
+
+
+
+
+
+
+
 
 
 // ADD MESSAGE FUNCTION

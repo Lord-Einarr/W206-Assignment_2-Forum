@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require "includes/dbcon.php";
+    require "includes/config.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,17 +12,10 @@
     	<title><?= (!empty($page['title'])) ? $page['title'] : 'Default Page' ?></title>
 
     	<!-- Styles -->
-    	
-      
-    	<!-- Bootstrap -->
-    	<link href="css/app.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/fourm.css">
-        <link rel="stylesheet" type="text/css" href="css/custom.css">        
-
-
-
         <link href="//db.onlinewebfonts.com/c/a4e256ed67403c6ad5d43937ed48a77b?family=Core+Sans+N+W01+35+Light" rel="stylesheet" type="text/css"/>
-
+    	<link href="css/app.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/custom.css">        
+        
 	</head>
     
-	<body class="page-body">
+	   <body class="page-body">

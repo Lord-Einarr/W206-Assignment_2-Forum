@@ -1,45 +1,41 @@
-<?php
-    include 'partials/header.php';
-    include 'partials/navigation.php';
+ <?php
+ 	include 'partials/header.php';
+ 	include 'partials/navigation.php';
+ 	
+ 	if ($_SERVER['REQUEST_METHOD']=='POST') {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-$error = false;
-if(isset($_POST['btn-login'])){
-    $email = trim($_POST['email']);
-    $email = htmlspecialchars(strip_tags($email));
+        $sql = "SELECT * FROM users WHERE email='$email'";
+		$results = mysqli_query($conn, $sql);
+		$row = mysqli_fetch_assoc($results);
+		$hash_pwd = $row['password'];
+		$hash = password_verify($password, $hash_pwd);
 
-    $password = trim($_POST['password']);
-    $password = htmlspecialchars(strip_tags($password));
+		if ($hash == 0) {
+			header("Location: login.php?error=pass");
+            exit();
+		} 
+		else {
+     	
+        	$sql = "SELECT * FROM users WHERE email='$email' AND password='$hash_pwd'";
+			$results = mysqli_query($conn, $sql);
 
-    if(empty($email)){
-        $error = true;
-        $errorEmail = 'Please input email';
-    }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $error = true;
-        $errorEmail = 'Please enter a valid email address';
-    }
+			if (!$row = mysqli_fetch_assoc($results)) {
+				echo "Invalid Login details!";
+			} else {
+				$_SESSION['username'] = $row['username'];
+			}
+		
+			header("Location: index.php");
+		}
+	}
 
-    if(empty($password)){
-        $error = true;
-        $errorPassword = 'Please enter password';
-    }elseif(strlen($password)< 6){
-        $error = true;
-        $errorPassword = 'Password at least 6 character';
-    }
+	include 'views/login.view.php';
+	include 'partials/footer.php';
+ ?>
 
-    if(!$error){
-        $password = md5($password);
-        $sql = "select * from tbl_users where email='$email' ";
-        $result = mysqli_query($conn, $sql);
-        $count = mysqli_num_rows($result);
-        $row = mysqli_fetch_assoc($result);
-        if($count==1 && $row['password'] == $password){
-            $_SESSION['username'] = $row['username'];
-            header('location: dashboard.php');
-        }else{
-            $errorMsg = 'Invalid Username or Password';
-        }
-    }
-}
-require 'views/login.view.php';
-require 'partials/footer.php';
-?>
+
+
+
+	

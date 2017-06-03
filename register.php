@@ -2,57 +2,95 @@
     include 'partials/header.php';
     include 'partials/navigation.php';
 
-$error = false;
-if(isset($_POST['btn-register'])){
-    //clean user input to prevent sql injection
-    $username = $_POST['username'];
-    $username = strip_tags($username);
-    $username = htmlspecialchars($username);
-
-    $email = $_POST['email'];
-    $email = strip_tags($email);
-    $email = htmlspecialchars($email);
-
-    $password = $_POST['password'];
-    $password = strip_tags($password);
-    $password = htmlspecialchars($password);
-
-    //validate
-    if(empty($username)){
-        $error = true;
-        $errorUsername = 'Please input username';
+    $url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    if (strpos($url, 'error=empty') !== false) {
+        echo "Please fill out all feilds!";
+    }
+    elseif (strpos($url, 'error=email') !== false) {
+        echo "This email is already registered!";
+    }
+    elseif (strpos($url, 'error=username') !== false) {
+        echo "This username is already registered!";
     }
 
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $error = true;
-        $errorEmail = 'Please a valid input email';
-    }
+    if ($_SERVER['REQUEST_METHOD']=='POST') {
+        $username = $_POST['username'];
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $email = $_POST['email'];
+        $confirmEmail = $_POST ['confirmEmail'];
+        $password = $_POST['password'];
+        $confirmPassword = $_POST ['confirmPassword'];
+     
+        if (empty($username)) {
+            header("Location: register.php?error=empty");
+            exit();
+        }
+        if (empty($firstname)) {
+            header("Location: register.php?error=empty");
+            exit();
+        }
+        if (empty($lastname)) {
+            header("Location: register.php?error=empty");
+            exit();
+        }
+        if (empty($email)) {
+            header("Location: register.php?error=empty");
+            exit();
+        }
+        if (empty($confirmEmail)) {
+            header("Location: register.php?error=empty");
+            exit();
+        }
+        if (empty($password)) {
+            header("Location: register.php?error=empty");
+            exit();
+        }
+        if (empty($confirmPassword)) {
+            header("Location: register.php?error=empty");
+            exit();
+        }
+        else {
 
-    if(empty($password)){
-        $error = true;
-        $errorPassword = 'Please password';
-    }elseif(strlen($password) < 6){
-        $error = true;
-        $errorPassword = 'Password must at least 6 characters';
-    }
+            $sql = "SELECT email FROM users WHERE email='$email'";
+            $result = mysqli_query($conn, $sql);
+            $emailcheck = mysqli_num_rows($result);
+            if ($emailcheck > 0) {
+                header("Location: register.php?error=email");
+                exit();
+            }
 
-    //encrypt password with md5
-    $password = md5($password);
+            $sql = "SELECT username FROM users WHERE username='$username'";
+            $result = mysqli_query($conn, $sql);
+            $emailcheck = mysqli_num_rows($result);
+            if ($emailcheck > 0) {
+                header("Location: register.php?error=username");
+                exit();
+            }
+            
 
-    //insert data if no error
-    if(!$error){
-        $sql = "insert into tbl_users(username, email ,password)
-                values('$username', '$email', '$password')";
-        if(mysqli_query($conn, $sql)){
-            $successMsg = 'Register successfully. <a href="index.php">click here to login</a>';
-        }else{
-            echo 'Error '.mysqli_error($conn);
+            if ($_POST['email'] != $_POST['confirmEmail']) {
+                    header("Location: register.php?error=email");
+                    exit();
+            } 
+           
+            if ($_POST['password'] != $_POST['confirmPassword']) {
+                header("Location: register.php?error=password");
+                exit();
+            } 
+            else{
+                $encryption = password_hash($password, PASSWORD_DEFAULT);
+                $sql = "INSERT INTO users (username, firstname, lastname, email, password)
+                VALUES ('$username', '$firstname', '$lastname', '$email', '$encryption')";
+                $result = mysqli_query($conn, $sql);
+
+                header("Location: index.php");
+
+            }
         }
     }
 
-}
-require 'views/register.view.php';
-require 'partials/footer.php';
 
+    include 'views/register.view.php';
+    include 'partials/footer.php;'
 ?>
-
